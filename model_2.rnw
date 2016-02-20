@@ -70,3 +70,5 @@ output = coda.samples(model = model,
 summary(output)
 plot(output)
 @
+
+\todo{how does this change if the measurement error is bigger or smaller?}

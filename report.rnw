@@ -30,12 +30,32 @@ cat('rjags info:')
 library('rjags')
 @
 
+\section{Preface}
+
 \section{Bayesian modeling}
 
 \todo{explain Baye's theorem, priors, posteriors, MCMC, etc}
 \todo{caching?}
 \todo{analyzing how well the MCMC mixed?}
 \todo{separate files for sections}
+
+\subsection{Bayes' Theorem}
+
+First, some notation:  for an event $A$, the probability of the event occurring is given by $P(A)$.  For instance, the probabilities of an unbiased coin flip can be written as $P(\mathrm{heads}) = 0.5$ and $P(\mathrm{tails}) = 0.5$.  
+
+In many cases, we wish to know the conditional probability of an event. $P(A|B)$ represents the probability of event $A$ occurring, given that event $B$ occurs.  To give an example of the difference between this and standard probability, if today is Wednesday (event $A$), the probability of tomorrow being Thursday (event $B$) is $P(B|A) = 1$, while without the condition, the probability is random: $P(B) = 1/7$. 
+
+The whole subject of Bayesian Inference rests on a mathematical rule called Bayes' theorem:
+
+\[
+    P(H|E) = \frac{P(E|H) P(H)}{P(E)}
+\]
+
+Here, $H$ stands for a hypothesis to be tested and $E$ stands for the evidence (data).  The right side contains three terms.  $P(E|H)$ is the likelihood of measuring the evidence, assuming that the hypothesis is true.  The two probabilities $P(H)$ and $P(E)$ are called priors or prior distributions and represent relevant knowledge beyond the dataset itself.  They are called ``priors" because we know these probabilities before doing the analysis.  
+
+The left side of Bayes' theorem reads ``The probability of $H$ given the evidence", which represents exactly what we are interested in -- how likely is this hypothesis, according to the data that we collected?  This probability is known as the posterior or the posterior distribution. 
+
+
 
 \subsection{MCMC}
 
