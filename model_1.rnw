@@ -10,7 +10,7 @@ set.seed(1)
 Now let's make a basic model to test rjags.  The simplest realistic example is a linear relationship with some y-scatter.  Let's make an artificial dataset for testing:
 
 <<>>=
-# Create an artificial dataset:
+## Create an artificial dataset:
 true_slope = 1
 true_intercept = -5
 true_sigma = 2
@@ -43,12 +43,12 @@ Let's write the JAGS code for this model and capture it into a string:
 <<>>=
 model_string = "
   model {
-    # priors:
+    ## priors:
     a ~ dunif(0,5)
     b ~ dunif(-10,10)
     sigma ~ dunif(0,3)
     
-    # structure:
+    ## structure:
     for (i in 1:N) {
         y[i] ~ dnorm(a * x[i] + b, pow(sigma, -2))
     }
@@ -117,12 +117,12 @@ plot(x,y)
 
 model_string = "
 model {
-    # priors:
+    ## priors:
     a ~ dunif(0,5)
     b ~ dunif(-10,10)
     sigma ~ dunif(0,3)
 
-    # structure:
+    ## structure:
     for (i in 1:N) {
     y[i] ~ dnorm(a * x[i] + b, pow(sigma, -2))
     }
@@ -148,4 +148,4 @@ print(summary(output))
 plot(output)
 @
 
-The rest of the examples in this paper will follow more or less the same format: create or load in some data, define the model, pass it to JAGS, and have a look at the output.
+The rest of the examples in this paper will follow more or less the same format: create or load in some data, define the model, pass it to JAGS, and have a look at the output.  

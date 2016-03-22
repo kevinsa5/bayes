@@ -1,13 +1,14 @@
 
 all: report.pdf
-	evince report.pdf
+	evince report.pdf &
 
 report.pdf: report.tex
 	pdflatex report.tex
 
-report.tex: report.rnw model_1.rnw model_2.rnw
+report.tex: report.rnw model_1.rnw model_2.rnw model_3.rnw priors.rnw
 	Rscript -e "library(knitr); knit('./report.rnw')"
 
 clean:
-	-rm report.tex *.aux *.log *.tdo *.toc
+	-rm *.tex *.aux *.log *.tdo *.toc *.out
 	-rm -r figure
+	-rm -r cache
