@@ -11,9 +11,9 @@ test.analysis = function(N = 50){
     model_string = "
     model {
         ## priors:
-        b ~ dunif(0,5)
-        a ~ dunif(-10,10)
-        sigma ~ dunif(0,3)
+        b ~ dunif(-10,10)
+        a ~ dunif(0,10)
+        sigma ~ dunif(0,5)
 
         ## structure:
         for (i in 1:N) {

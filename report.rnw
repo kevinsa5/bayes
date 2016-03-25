@@ -33,6 +33,7 @@ library('rjags')
 @
 
 \todo{use the glm package}
+\todo{a is intercept, b is slope everywhere}
 
 \section{Preface}
 

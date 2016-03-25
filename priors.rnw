@@ -35,4 +35,4 @@ If some information about the parameters is already known before the data analys
 
 \subsection{Sensitivity to Prior}
 
-Choosing an informative prior is somewhat unsettling to some people -- shouldn't statistical inference be independent of ``expert opinion"?  The arbitrary choice of prior distributions has been a hot debate between statisticians for decades.  That won't be covered here, but instead we will sidestep the issue and examine the sensitivity of an analysis to the choice of prior. 
+Choosing an informative prior is somewhat unsettling to some people -- shouldn't statistical inference be independent of ``expert opinion"?  The arbitrary choice of prior distributions has been a hot debate between statisticians for decades.  That won't be covered here, and instead we will sidestep the issue and examine the sensitivity of an analysis to the choice of prior. 

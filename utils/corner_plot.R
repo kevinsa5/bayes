@@ -1,7 +1,7 @@
 
 corner.plot = function(mcmcList, upper.panels=FALSE, filled.contours=FALSE){
     library(MASS)
-    
+    dev.new()
     #function for plotting histograms on the diagonal of the matrix plots
     panel.hist <- function(x, ...)
     {

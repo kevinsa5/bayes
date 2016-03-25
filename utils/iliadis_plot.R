@@ -2,8 +2,8 @@
 iliadis.plot = function(mcmcList,x,y){
     dev.new()
     num_lines = 500
-    xlim = c(-5,15)
-    ylim = c(-12,12)
+    xlim = range(x)
+    ylim = range(y)
     plot(x,y, xlim=xlim, ylim=ylim)
     all_samples = as.matrix(mcmcList)
 
