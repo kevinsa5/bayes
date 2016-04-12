@@ -5,7 +5,7 @@ all: report.pdf
 report.pdf: report.tex
 	pdflatex report.tex
 
-report.tex: report.rnw model_1.rnw model_2.rnw model_3.rnw priors.rnw
+report.tex: report.rnw model_1.rnw model_2.rnw model_3.rnw model_4.rnw priors.rnw
 	Rscript -e "library(knitr); knit('./report.rnw')"
 
 clean:

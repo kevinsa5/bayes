@@ -86,6 +86,11 @@ Monte Carlo methods are algorithms that use randomly generated numbers to estima
 <<child='model_3.rnw'>>=
 @ 
 
+\subsection{Nonlinear models}
+
+<<child='model_4.rnw'>>=
+@
+
 \section{Choosing a Prior}
 
 <<child='priors.rnw'>>=
