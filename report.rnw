@@ -1,11 +1,14 @@
 \documentclass{article}
-\usepackage[margin=3cm]{geometry}
+\usepackage[margin=2.5cm]{geometry}
 \usepackage{xcolor}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{hyperref}
+\usepackage{listings}
 
-  
-\title{Constructing Bayesian Models with Markov Chain Monte Carlo Techniques for Nuclear Astrophysics }
+% allow \paragraph to act as subsubsubsection:
+\setcounter{secnumdepth}{5}
+
+\title{An Introduction to using JAGS for Bayesian Regression Analysis}
 \author{Kevin Anderson\\ Supervised by Christian Iliadis }
 
 \newcommand{\code}[1]{\colorbox{gray!8}{\let~\textasciitilde\texttt{#1}}}
@@ -14,7 +17,6 @@
 
 \maketitle
 
-\listoftodos
 \tableofcontents
 
 
@@ -25,26 +27,21 @@ knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\usepackag
 # put a dollar sign here if the syntax highlighter is stupid: $
 @
 
-<<echo=F>>=
-cat('Last modified on ')
-cat(date())
-cat('rjags info:')
-library('rjags')
-@
-
-\todo{use the glm package}
-\todo{a is intercept, b is slope everywhere}
-
 \section{Preface}
 
 This paper is an introduction to constructing Bayesian regression models using the R programming language and the R package rjags.  Familiarity with the R language and basic statistical background (means, standard deviations, etc) are necessary to understand the material.  
 
 The intent of this paper is to show how easy it is to fit complex regression models to experimental data with rjags.  The techniques applied in this paper are surprisingly powerful, given their simplicity. 
 
-\section{Background}
+<<echo=F>>=
+cat('Last modified on ')
+cat(date())
+cat('rjags info:')
+library('rjags')
+sessionInfo()
+@
 
-\todo{caching?}
-\todo{analyzing how well the MCMC mixed?}
+\section{Background}
 
 \subsection{Bayes' Theorem}
 
@@ -62,12 +59,11 @@ Here, $H$ stands for a hypothesis to be tested and $E$ stands for the evidence (
 
 The left side of Bayes' theorem reads ``The probability of $H$ given the evidence", which represents exactly what we are interested in -- how likely is this hypothesis, according to the data that we collected?  This probability is known as the posterior or the posterior distribution.  In this paper, we'll focus on fitting model parameters to datasets, and so what we are interested in are real numbers: slopes, intercepts, standard deviations, etc.  These of course lie on the real axis and are continuous, and so the posterior for some model will be probability distributions for each parameter.   
 
-\todo{example of Bayes' theorem}
-\todo{why is the denominator problematic?}
+In general, each of these terms can be arbitrarily complex, and so actually using Bayes' theorem for analytic calculation is often impractical.  To get around this, we use a numerical technique called Markov Chain Monte Carlo. 
 
 \subsection{MCMC}
 
-Monte Carlo methods are algorithms that use randomly generated numbers to estimate numbers that are too hard to calculate analytically.  A common use case for Monte Carlo techniques is evaluating complex multidimensional integrals.  
+Monte Carlo methods are algorithms that use randomly generated numbers to estimate numbers that are too hard to calculate analytically.  A common use case for Monte Carlo techniques is evaluating complex multidimensional integrals.  We won't cover the theory of Markov Chain Monte Carlo here, as many resources are available for this.  Suffice to say, we will generate Markov Chains from which the posterior distributions can be calculated. 
  
 \section{Bayesian Regression}
 
@@ -96,5 +92,15 @@ Monte Carlo methods are algorithms that use randomly generated numbers to estima
 <<child='priors.rnw'>>=
 @
 
- 
+\section{Notes}
+
+There are a few tricks to help get good results with JAGS.  For example, the time-varying signal had a phase shift included, and the prior was chosen to be \code{dunif(-3.14,3.14)} rather than \code{dunif(0,6.28)}.  Sometimes, the Markov Chain can ``get stuck" and fail to sample accurately, and the choice of prior can affect this.  
+
+Another way to avoid this problem is by specifying reasonable initial values for each parameter with the \code{inits} variable.  If you do not specify the initial value for a parameter, JAGS will try to pick an appropriate starting value.  It usually works well, but can fail for some models. 
+
+\section{Modifying JAGS}
+
+<<child='modifying.rnw'>>=
+@
+
 \end{document}

@@ -91,7 +91,7 @@ obs_y = rnorm(N, true_y, y_sigma)
 
 @ 
 
-<<fig.pos="H", fig.height=5, fig.width=5>>=
+<<fig.pos="H", fig.height=4, fig.width=4>>=
 plot(obs_x, obs_y)
 segments(obs_x, obs_y - 2*y_sigma, obs_x, obs_y + 2*y_sigma)
 segments(obs_x - 2*x_sigma, obs_y, obs_x + 2*x_sigma, obs_y)

@@ -5,12 +5,13 @@ iliadis.plot = function(mcmcList,x,y){
     xlim = range(x)
     ylim = range(y)
     plot(x,y, xlim=xlim, ylim=ylim)
-    all_samples = as.matrix(mcmcList)
 
-    ## regression line distribution (grey lines).  
+    all_samples = as.matrix(mcmcList)
     samples = all_samples[round(seq(from = 1, to = nrow(all_samples), length = num_lines)),]
     slopes = samples[,"b"]
     intercepts = samples[,"a"]
+
+    ## regression line distribution (grey lines).
     for(i in 1:nrow(samples)){
         abline(intercepts[i],slopes[i],col=adjustcolor("black",alpha = 0.01))
     }

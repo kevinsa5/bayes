@@ -87,8 +87,6 @@ output = coda.samples(model = model,
                       thin=1)
 @
 
-\todo{Talk about adapt, chains, thin, etc}
-
 We get back an object \code{output} that contains the Markov chain.  First, as always in R, have a look at the summary of it:
 
 <<>>=

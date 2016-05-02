@@ -46,7 +46,6 @@ model_string = "
     }
   }
 "
-
 model = jags.model(file = textConnection(model_string), 
                    data = list('theta' = data.table$theta,
                                'I' = data.table$I),
@@ -54,7 +53,6 @@ model = jags.model(file = textConnection(model_string),
                    n.adapt = 1000,
                    inits = list('.RNG.name' = 'base::Mersenne-Twister', 
                                 '.RNG.seed' = 1))
-
 output = coda.samples(model = model,
                       variable.names = c("a", "I0", "sigma"), 
                       n.iter =10000,
@@ -62,11 +60,63 @@ output = coda.samples(model = model,
 @
 
  
-<<fig.pos="H", fig.height=5, fig.width=5>>=
+<<dev='png', dev.args=list(type="cairo"), dpi=200>>=
 plot(output)
 @
 
 Note the x-scales on the probability densities-- all of them are very tight, and it would appear that $a$ is certainly indistinguishable from $1$, and our measurements hardly deviate at all from Malus's Law predictions.  
+
+\subsubsection{Growing Signal}
+
+To give another example, one with more parameters, let's analyze a simulated time-varying voltage signal.  First, let's generate some data:
+
+<<fig.pos="H", fig.height=5, fig.width=5>>=
+N = 100
+A = 5
+w = 2
+d = 1.5
+sigma = 1
+
+t = seq(from = 0, 
+        to = 10, 
+        length.out = N)
+y = rnorm(N, 
+          A*t*cos(w*t + d), 
+          sigma)
+plot(t,y)
+@
+
+Note that now we have four parameters:  an amplitude, a frequency, a phase shift, and the noise.  The model is simple:
+
+<<results="hide", cache=TRUE>>=
+model_string = "
+model {
+    A ~ dunif(0,10)
+    w ~ dunif(0,10)
+    d ~ dunif(-3.14, 3.14)
+    sigma ~ dunif(0,10)
+
+    for (i in 1:length(t)) {
+        y[i] ~ dnorm(A*t[i]*cos(w*t[i] + d), pow(sigma, -2))
+    }
+}
+"
+model = jags.model(file = textConnection(model_string),
+                   data = list('t' = t,
+                               'y' = y),
+                   n.chains = 1,
+                   n.adapt = 1000)
+output = coda.samples(model = model,
+                      variable.names = c("A", "w", "sigma", "d"),
+                      n.iter = 10000,
+                      thin=1)
+@
+
+And the output is surprisingly good:
+
+<<dev='png', dev.args=list(type="cairo"), dpi=200>>=
+plot(output)
+@
 
 \subsubsection{The Slow Fourier Transform}
 

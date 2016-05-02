@@ -146,6 +146,3 @@ plot(output)
 
 This time, the results are rather disappointing.  The systematic error posteriors are not centered near the true values at all. The intercept posterior has been shifted as well.  This is not too unexpected-- we didn't give it much to work with, and really no additive shift would be unreasonable to report here.  
 
-\todo{how to fix additive systematic errors?}
-
-
